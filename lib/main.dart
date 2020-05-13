@@ -14,22 +14,35 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Trippas',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          primarySwatch: Colors.blue,
+          appBarTheme: AppBarTheme(
+            color: Colors.white,
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+          )),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: 1,
+        itemBuilder: (BuildContext context, int index) => (SafeArea()),
       ),
-      home: Scaffold(
-        body: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (BuildContext context, int index) => (SafeArea()),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddTrip()),
-            );
-          },
-          child: Icon(Icons.add),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddTrip()));
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -133,7 +146,8 @@ class _SafeAreaState extends State<SafeArea> {
                       Row(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+                            padding:
+                                const EdgeInsets.fromLTRB(16, 16, 0, 16),
                             child: Container(
                               padding: EdgeInsets.all(4),
                               decoration: BoxDecoration(
@@ -207,7 +221,7 @@ class _SafeAreaState extends State<SafeArea> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -656,13 +670,173 @@ class AddTrip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Create a trip', style: GoogleFonts.nunito()),
+          title: Text(
+            'Create a trip',
+            style: GoogleFonts.nunito(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
+                fontSize: 25,
+              ),
+            ),
+          ),
         ),
-        body: RaisedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back'),
-        ));
+        body: AddTripForm());
+  }
+}
+
+class AddTripForm extends StatefulWidget {
+  AddTripForm({Key key}) : super(key: key);
+
+  @override
+  _AddTripFormState createState() => _AddTripFormState();
+}
+
+class _AddTripFormState extends State<AddTripForm> {
+  var tripType = [
+    "Business",
+    ''
+        "Education",
+    "Vacation",
+    "Baecation",
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: FormField<String>(builder: (FormFieldState<String> state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Flexible(
+                  child: TextFormField(
+                    textCapitalization: TextCapitalization.sentences,
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 0.5,
+                        height: 2.0,
+                      ),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Enter Departure',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Flexible(
+                  child: TextFormField(
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 0.5,
+                        height: 2.0,
+                      ),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Enter Date',
+                    ),
+                  ),
+                ),
+                SizedBox(width: 50),
+                Flexible(
+                  child: TextFormField(
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 0.5,
+                        height: 2.0,
+                      ),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Enter Time',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextFormField(
+                    textCapitalization: TextCapitalization.sentences,
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 0.5,
+                        height: 2.0,
+                      ),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Enter Destination',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Flexible(
+                  child: TextFormField(
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 0.5,
+                        height: 2.0,
+                      ),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Enter Date',
+                    ),
+                  ),
+                ),
+                SizedBox(width: 50),
+                Flexible(
+                  child: TextFormField(
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 0.5,
+                        height: 2.0,
+                      ),
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Enter Time',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Flexible(
+              child: Row(
+                children: <Widget>[
+                  InputDecorator(
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        items: tripType.map(
+                          (String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      }),
+    );
   }
 }
