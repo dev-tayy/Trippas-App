@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:getflutter/getflutter.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,6 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.blue, //or set color with: Color(0xFF0000FF)
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Trippas',
@@ -146,8 +150,7 @@ class _SafeAreaState extends State<SafeArea> {
                       Row(
                         children: <Widget>[
                           Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(16, 16, 0, 16),
+                            padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
                             child: Container(
                               padding: EdgeInsets.all(4),
                               decoration: BoxDecoration(
@@ -693,150 +696,203 @@ class AddTripForm extends StatefulWidget {
 }
 
 class _AddTripFormState extends State<AddTripForm> {
-  var tripType = [
-    "Business",
-    ''
-        "Education",
-    "Vacation",
-    "Baecation",
-  ];
+  String _value;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: FormField<String>(builder: (FormFieldState<String> state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Flexible(
-                  child: TextFormField(
-                    textCapitalization: TextCapitalization.sentences,
-                    style: GoogleFonts.nunito(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 0.5,
-                        height: 2.0,
-                      ),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
+                  style: GoogleFonts.nunito(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      height: 2.0,
                     ),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Departure',
-                    ),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Enter Departure',
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  child: TextFormField(
-                    style: GoogleFonts.nunito(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 0.5,
-                        height: 2.0,
-                      ),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Date',
-                    ),
-                  ),
-                ),
-                SizedBox(width: 50),
-                Flexible(
-                  child: TextFormField(
-                    style: GoogleFonts.nunito(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 0.5,
-                        height: 2.0,
-                      ),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Time',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextFormField(
-                    textCapitalization: TextCapitalization.sentences,
-                    style: GoogleFonts.nunito(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 0.5,
-                        height: 2.0,
-                      ),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Destination',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
-                  child: TextFormField(
-                    style: GoogleFonts.nunito(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 0.5,
-                        height: 2.0,
-                      ),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Date',
-                    ),
-                  ),
-                ),
-                SizedBox(width: 50),
-                Flexible(
-                  child: TextFormField(
-                    style: GoogleFonts.nunito(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        letterSpacing: 0.5,
-                        height: 2.0,
-                      ),
-                    ),
-                    decoration: InputDecoration(
-                      hintText: 'Enter Time',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Flexible(
-              child: Row(
-                children: <Widget>[
-                  InputDecorator(
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        items: tripType.map(
-                          (String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ),
-                ],
               ),
-            ),
-          ],
-        );
-      }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: TextFormField(
+                  style: GoogleFonts.nunito(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      height: 2.0,
+                    ),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Enter Date',
+                  ),
+                ),
+              ),
+              SizedBox(width: 50),
+              Flexible(
+                child: TextFormField(
+                  style: GoogleFonts.nunito(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      height: 2.0,
+                    ),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Enter Time',
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
+                  style: GoogleFonts.nunito(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      height: 2.0,
+                    ),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Enter Destination',
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                child: TextFormField(
+                  style: GoogleFonts.nunito(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      height: 2.0,
+                    ),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Enter Date',
+                  ),
+                ),
+              ),
+              SizedBox(width: 50),
+              Flexible(
+                child: TextFormField(
+                  style: GoogleFonts.nunito(
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      height: 2.0,
+                    ),
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Enter Time',
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: DropdownButton<String>(
+                  elevation: 2,
+                  items: [
+                    DropdownMenuItem<String>(
+                      child: Text(
+                        'Business',
+                        style: GoogleFonts.nunito(
+                          fontSize: 20,
+                          letterSpacing: 0.5,
+                          height: 2.0,
+                        ),
+                      ),
+                      value: 'one',
+                    ),
+                    DropdownMenuItem<String>(
+                      child: Text(
+                        'Vacation',
+                        style: GoogleFonts.nunito(
+                          fontSize: 20,
+                          letterSpacing: 0.5,
+                          height: 2.0,
+                        ),
+                      ),
+                      value: 'two',
+                    ),
+                    DropdownMenuItem<String>(
+                      child: Text(
+                        'Baecation',
+                        style: GoogleFonts.nunito(
+                          fontSize: 20,
+                          letterSpacing: 0.5,
+                          height: 2.0,
+                        ),
+                      ),
+                      value: 'three',
+                    ),
+                  ],
+                  onChanged: (String value) {
+                    setState(() {
+                      _value = value;
+                    });
+                  },
+                  hint: Text(
+                    'Trip Type',
+                    style: GoogleFonts.nunito(
+                      fontSize: 20,
+                      letterSpacing: 0.5,
+                      height: 2.0,
+                    ),
+                  ),
+                  value: _value,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: RaisedButton(
+                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                  onPressed: () {},
+                  child: Text(
+                    'Add Trip',
+                    style: GoogleFonts.nunito(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        letterSpacing: 0.5,
+                        height: 2.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
